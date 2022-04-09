@@ -4,10 +4,12 @@
  * @Description:
  * @Author: lqzh
  * @Date: 2022-04-09 00:03:46
- * @LastEditTime: 2022-04-09 10:45:42
+ * @LastEditTime: 2022-04-09 12:21:12
  */
 
-console.log('process.version', process.version);
+const fs = require('fs');
+const path = require('path');
+
 const { program } = require('commander');
 const download = require('download-git-repo');
 const handlebars = require('handlebars');
@@ -15,44 +17,31 @@ const inquirer = require('inquirer');
 const ora = require('ora');
 const logSymbols = require('log-symbols');
 const chalk = require('chalk');
-const fs = require('fs');
+const exec = require('child_process').execSync;
 
-// const templates = require('./templete');
-
-const templates = {
-    'template-vue': {
-        url: 'https://gitee.com/RachelZ8/template-vue',
-        downloadUrl: 'https://gitee.com:RachelZ8/template-vue#master',
-        description: 'vue模版',
-    },
-    'template-react': {
-        url: 'https://gitee.com/RachelZ8/template-react',
-        downloadUrl: 'https://gitee.com:RachelZ8/template-react#master',
-        description: 'react模版',
-    },
-};
-
-//create-app init template-vue test-vue基于template-vue模版进行初始化
-//create-app init template-react test-react基于template-react模版进行初始化
+const templates = require('./template.js');
 
 program.version('1.0.0'); // -v 或者 --versions输出版本号
 
 program
-    .command('init <template> <project>')
+    .command('init <template>')
     .description('初始化项目模版')
-    .action((templateName, projectName) => {
+    .action(templateName => {
         // 下载之前做loading提示
         const spinner = ora('正在下载模版...').start();
-        if (!templates[templateName]) {
+
+        const tmpl = templates.find(v => v.key === templateName);
+        if (!tmpl) {
             spinner.fail();
             console.log(logSymbols.error, chalk.red('未找到模板'));
             return;
         }
-        const { downloadUrl } = templates[templateName];
+
+        const { downloadUrl } = tmpl;
         //download
         // 第一个参数： 仓库地址
         // 第二个参数： 下载路径
-        download(downloadUrl, projectName, { clone: true }, err => {
+        download(downloadUrl, './', { clone: true }, err => {
             if (err) {
                 spinner.fail();
                 console.log(logSymbols.error, chalk.red(err));
@@ -66,29 +55,44 @@ program
             inquirer
                 .prompt([
                     {
-                        type: 'inpute',
+                        type: 'input',
                         name: 'name',
                         message: '请输入项目名称',
                     },
                     {
-                        type: 'inpute',
+                        type: 'input',
                         name: 'description',
                         message: '请输入项目简介',
                     },
-                    {
-                        type: 'inpute',
-                        name: 'author',
-                        message: '请输入作者名称',
-                    },
                 ])
                 .then(answers => {
-                    const packagePath = `${projectName}/package.json`;
+                    const packagePath = `./package.json`;
                     const packageContent = fs.readFileSync(packagePath, 'utf8');
-                    const packageResult = handlebars.compile(packageContent)(answers);
+                    const packageResult = handlebars.compile(packageContent)({
+                        ...answers,
+                        nodeVersion: process.version,
+                    });
                     fs.writeFileSync(packagePath, packageResult);
                     console.log(chalk.yellow('初始化模版成功'));
+                })
+                .then(() => {
+                    exec(`npm install && npm run dev`, {
+                        // cwd: path.join(process.cwd(), ),
+                        stdio: 'inherit',
+                    });
+                    console.log('ok');
                 });
         });
+    });
+
+program
+    .command('list')
+    .description('查看所有可用的模版')
+    .action(() => {
+        console.log(
+            '\nkey\tdescription\n======================\n' +
+                templates.map(v => `${v.key}\t${v.description}`).join('\n'),
+        );
     });
 
 program.parse(process.argv);
