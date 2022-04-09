@@ -4,11 +4,10 @@
  * @Description:
  * @Author: lqzh
  * @Date: 2022-04-09 00:03:46
- * @LastEditTime: 2022-04-09 12:21:12
+ * @LastEditTime: 2022-04-09 13:14:57
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs-extra');
 
 const { program } = require('commander');
 const download = require('download-git-repo');
@@ -52,35 +51,27 @@ program
             // 使用向导的方式采集用户输入的数据解析导
             // 使用模板引擎把用户输入的数据解析到package.json 文件中
             // 解析完毕，把解析之后的结果重新写入package.json 文件中
+
+            const prompt = fs.existsSync('./tmpl/prompt.json') ? fs.readJsonSync('./tmpl/prompt.json') : [];
+            const files = fs.existsSync('./tmpl/files.json') ? fs.readJsonSync('./tmpl/files.json') : [];
+
             inquirer
-                .prompt([
-                    {
-                        type: 'input',
-                        name: 'name',
-                        message: '请输入项目名称',
-                    },
-                    {
-                        type: 'input',
-                        name: 'description',
-                        message: '请输入项目简介',
-                    },
-                ])
+                .prompt(prompt)
                 .then(answers => {
-                    const packagePath = `./package.json`;
-                    const packageContent = fs.readFileSync(packagePath, 'utf8');
-                    const packageResult = handlebars.compile(packageContent)({
-                        ...answers,
-                        nodeVersion: process.version,
-                    });
-                    fs.writeFileSync(packagePath, packageResult);
+                    for (let i = 0; i < files.length; i++) {
+                        const f = files[i];
+                        const content = fs.readFileSync(f, 'utf8');
+                        const result = handlebars.compile(content)({
+                            ...answers,
+                            nodeVersion: process.version,
+                        });
+                        fs.writeFileSync(f, result);
+                    }
                     console.log(chalk.yellow('初始化模版成功'));
                 })
                 .then(() => {
-                    exec(`npm install && npm run dev`, {
-                        // cwd: path.join(process.cwd(), ),
-                        stdio: 'inherit',
-                    });
-                    console.log('ok');
+                    fs.removeSync('./tmpl');
+                    exec(tmpl.script?.post, { stdio: 'inherit' });
                 });
         });
     });
