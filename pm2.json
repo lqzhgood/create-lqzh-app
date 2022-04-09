@@ -1,0 +1,24 @@
+{
+    "apps": [
+        {
+            "name": "Parking",
+            "script": "./index.js",
+            "cwd": "./",
+            "interpreter": "node",
+            "env": {
+                "NODE_ENV": "production"
+            },
+            "env_production": {
+                "NODE_ENV": "production"
+            },
+            "exec_mode": "fork",
+            "min_uptime": "60s",
+            "max_restarts": 10,
+            "max_memory_restart": "300M",
+            "log_date_format": "YYYY-MM-DD HH:mm:ss",
+            "watch": true,
+            "watch_delay": 10000,
+            "ignore_watch": ["node_modules", "logs/"]
+        }
+    ]
+}
