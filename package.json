@@ -9,7 +9,7 @@
     },
     "keywords": [],
     "author": "lqzh",
-    "license": "GNU GPLv3",
+    "license": "MIT",
     "nodemonConfig": {
         "ignore": [
             "input/*",
