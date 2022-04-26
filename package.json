@@ -19,7 +19,8 @@
         ]
     },
     "engines": {
-        "node": ">={{nodeVersion}}"
+        "node": ">={{nodeVersion}}",
+        "npm": ">={{npmVersion}}"
     },
     "dependencies": {
         "cross-env": "^7.0.3"
