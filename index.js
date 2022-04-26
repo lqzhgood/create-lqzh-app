@@ -4,7 +4,7 @@
  * @Description:
  * @Author: lqzh
  * @Date: 2022-04-09 00:03:46
- * @LastEditTime: 2022-04-09 13:14:57
+ * @LastEditTime: 2022-04-26 11:01:59
  */
 
 const fs = require('fs-extra');
@@ -64,6 +64,7 @@ program
                         const result = handlebars.compile(content)({
                             ...answers,
                             nodeVersion: process.version,
+                            npmVersion: exec('npm -v').toString(),
                         });
                         fs.writeFileSync(f, result);
                     }
