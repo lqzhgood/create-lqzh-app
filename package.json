@@ -1,10 +1,10 @@
 {
     "name": "create-lqzh-app",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "my create app cli",
     "main": "./index.js",
     "bin": {
-        "lqzh-create": "./index.js"
+        "create-lqzh-app": "./index.js"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
