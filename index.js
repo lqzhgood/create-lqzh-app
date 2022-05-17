@@ -8,7 +8,7 @@
  */
 
 const fs = require('fs-extra');
-
+const path = require('path');
 const { program } = require('commander');
 const download = require('download-git-repo');
 const handlebars = require('handlebars');
@@ -52,8 +52,10 @@ program
             // 使用模板引擎把用户输入的数据解析到package.json 文件中
             // 解析完毕，把解析之后的结果重新写入package.json 文件中
 
-            const prompt = fs.existsSync('./tmpl/prompt.json') ? fs.readJsonSync('./tmpl/prompt.json') : [];
-            const files = fs.existsSync('./tmpl/files.json') ? fs.readJsonSync('./tmpl/files.json') : [];
+            if (!fs.existsSync('./tmpl')) return;
+
+            const prompt =  require(path.resolve('./tmpl/prompt.js'));
+            const files  =  require(path.resolve('./tmpl/files.js'));
 
             inquirer
                 .prompt(prompt)
