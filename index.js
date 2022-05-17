@@ -66,7 +66,7 @@ program
                         const result = handlebars.compile(content)({
                             ...answers,
                             nodeVersion: process.version,
-                            npmVersion: exec('npm -v').toString(),
+                            npmVersion: exec('npm -v').toString().trim(),
                         });
                         fs.writeFileSync(f, result);
                     }

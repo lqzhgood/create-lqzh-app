@@ -1,6 +1,6 @@
 {
     "name": "create-lqzh-app",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "description": "my create app cli",
     "main": "./index.js",
     "bin": {
