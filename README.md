@@ -1,4 +1,4 @@
-# lqzh-create
+# create-lqzh-app
 
 [![npm version](https://img.shields.io/npm/v/lqzh-create.svg?style=flat-square)](https://github.com/lqzhgood/lqzh-create#readme)
 [![npm license](https://img.shields.io/npm/l/lqzh-create.svg?style=flat-square)](https://github.com/lqzhgood/lqzh-create#readme)
