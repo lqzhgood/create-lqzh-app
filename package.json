@@ -1,6 +1,6 @@
 {
-    "name": "lqzh-create",
-    "version": "1.0.7",
+    "name": "create-lqzh-app",
+    "version": "1.0.8",
     "description": "my create app cli",
     "main": "./index.js",
     "bin": {
@@ -13,15 +13,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/lqzhgood/lqzh-create.git"
+        "url": "git+https://github.com/lqzhgood/create-lqzh-app.git"
     },
     "keywords": [],
     "author": "",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/lqzhgood/lqzh-create/issues"
+        "url": "https://github.com/lqzhgood/create-lqzh-app/issues"
     },
-    "homepage": "https://github.com/lqzhgood/lqzh-create#readme",
+    "homepage": "https://github.com/lqzhgood/create-lqzh-app#readme",
     "dependencies": {
         "chalk": "^4.1.2",
         "commander": "^9.1.0",
