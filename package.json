@@ -5,6 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "prettier": "prettier . --write",
+        "eslint": "eslint . --ext .js,.ts --fix",
         "dev": "cross-env NODE_ENV=development nodemon --inspect index.js",
         "prod": "cross-env NODE_ENV=production node index.js"
     },
@@ -24,5 +26,13 @@
     },
     "dependencies": {
         "cross-env": "^7.0.3"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.23.5",
+        "@babel/eslint-parser": "^7.23.3",
+        "eslint": "^8.54.0",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-prettier": "^5.0.1",
+        "prettier": "^3.1.0"
     }
 }
