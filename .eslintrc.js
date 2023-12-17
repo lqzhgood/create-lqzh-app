@@ -55,7 +55,7 @@ module.exports = {
             'warn',
             {
                 arrowParens: 'avoid',
-                endOfLine: 'lf',
+                endOfLine: 'auto',
                 htmlWhitespaceSensitivity: 'ignore',
                 singleQuote: true,
                 jsxSingleQuote: true,
