@@ -4,7 +4,7 @@
  * @Description:
  * @Author: lqzh
  * @Date: 2022-04-09 00:03:46
- * @LastEditTime: 2023-12-21 23:47:57
+ * @LastEditTime: 2023-12-22 00:06:26
  */
 
 import inquirer from 'inquirer';
@@ -47,7 +47,7 @@ program
         //download
         // 第一个参数： 仓库地址
         // 第二个参数： 下载路径
-        download(downloadUrl, OUT_DIR, { clone: false }, err => {
+        download(downloadUrl, OUT_DIR, { clone: false }, async err => {
             if (err) {
                 spinner.fail();
                 console.log(logSymbols.error, chalk.red(err));
@@ -61,9 +61,10 @@ program
 
             if (!fs.existsSync('./tmpl')) return;
 
-            const prompt = require(path.resolve('./tmpl/prompt.js'));
-            const files = require(path.resolve('./tmpl/files.js'));
-            const script = require(path.resolve('./tmpl/script.js'));
+            const prompt = await import(path.resolve('./tmpl/prompt.js'));
+            console.log('prompt', prompt);
+            const files = await import(path.resolve('./tmpl/files.js'));
+            const script = await import(path.resolve('./tmpl/script.js'));
 
             inquirer
                 .prompt(prompt)
