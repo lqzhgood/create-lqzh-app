@@ -4,7 +4,7 @@
  * @Description:
  * @Author: lqzh
  * @Date: 2022-04-09 00:03:46
- * @LastEditTime: 2022-04-26 11:01:59
+ * @LastEditTime: 2023-12-21 22:42:41
  */
 
 const fs = require('fs-extra');
@@ -54,8 +54,9 @@ program
 
             if (!fs.existsSync('./tmpl')) return;
 
-            const prompt =  require(path.resolve('./tmpl/prompt.js'));
-            const files  =  require(path.resolve('./tmpl/files.js'));
+            const prompt = require(path.resolve('./tmpl/prompt.js'));
+            const files = require(path.resolve('./tmpl/files.js'));
+            const script = require(path.resolve('./tmpl/script.js'));
 
             inquirer
                 .prompt(prompt)
@@ -74,7 +75,10 @@ program
                 })
                 .then(() => {
                     fs.removeSync('./tmpl');
-                    exec(tmpl.script?.post, { stdio: 'inherit' });
+                    for (let i = 0; i < script.length; i++) {
+                        const run = script[i];
+                        exec(run, { stdio: 'inherit' });
+                    }
                 });
         });
     });
@@ -85,7 +89,7 @@ program
     .action(() => {
         console.log(
             '\nkey\tdescription\n======================\n' +
-                templates.map(v => `${v.key}\t${v.description}`).join('\n'),
+                templates.map(v => `${v.key}\t${v.description}`).join('\n')
         );
     });
 
