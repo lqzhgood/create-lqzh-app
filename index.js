@@ -4,7 +4,7 @@
  * @Description:
  * @Author: lqzh
  * @Date: 2022-04-09 00:03:46
- * @LastEditTime: 2023-12-21 22:42:41
+ * @LastEditTime: 2023-12-21 23:23:50
  */
 
 const fs = require('fs-extra');
@@ -40,7 +40,7 @@ program
         //download
         // 第一个参数： 仓库地址
         // 第二个参数： 下载路径
-        download(downloadUrl, './', { clone: true }, err => {
+        download(downloadUrl, './', { clone: false }, err => {
             if (err) {
                 spinner.fail();
                 console.log(logSymbols.error, chalk.red(err));
