@@ -4,7 +4,7 @@
  * @Description:
  * @Author: lqzh
  * @Date: 2022-04-09 00:03:46
- * @LastEditTime: 2023-12-22 00:42:08
+ * @LastEditTime: 2023-12-22 01:24:45
  */
 
 import inquirer from 'inquirer';
@@ -18,7 +18,7 @@ import logSymbols from 'log-symbols';
 import chalk from 'chalk';
 import { execSync as exec } from 'child_process';
 
-import { importFile } from './utils.js';
+import { importFile, resolve } from './utils.js';
 import templates from './template.js';
 
 let OUT_DIR = './';
@@ -60,20 +60,11 @@ program
             // 使用模板引擎把用户输入的数据解析到package.json 文件中
             // 解析完毕，把解析之后的结果重新写入package.json 文件中
 
-            if (!fs.existsSync('./tmpl')) return;
+            if (!fs.existsSync(resolve(OUT_DIR, './tmpl'))) return;
 
-            const { default: prompt } = await importFile(
-                OUT_DIR,
-                'tmpl/prompt.mjs'
-            );
-            const { default: files } = await importFile(
-                OUT_DIR,
-                'tmpl/files.mjs'
-            );
-            const { default: script } = await importFile(
-                OUT_DIR,
-                'tmpl/script.mjs'
-            );
+            const prompt = await importFile(OUT_DIR, 'tmpl/prompt.mjs');
+            const files = await importFile(OUT_DIR, 'tmpl/files.mjs');
+            const script = await importFile(OUT_DIR, 'tmpl/script.mjs');
 
             inquirer
                 .prompt(prompt)
