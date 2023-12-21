@@ -18,6 +18,7 @@ import logSymbols from 'log-symbols';
 import chalk from 'chalk';
 import { execSync as exec } from 'child_process';
 
+import { importFile } from './utils.js';
 import templates from './template.js';
 
 let OUT_DIR = './';
@@ -61,12 +62,17 @@ program
 
             if (!fs.existsSync('./tmpl')) return;
 
-            const { default: prompt } = await import(
-                OUT_DIR + 'tmpl/prompt.mjs'
+            const { default: prompt } = await importFile(
+                OUT_DIR,
+                'tmpl/prompt.mjs'
             );
-            const { default: files } = await import(OUT_DIR + 'tmpl/files.mjs');
-            const { default: script } = await import(
-                OUT_DIR + 'tmpl/script.mjs'
+            const { default: files } = await importFile(
+                OUT_DIR,
+                'tmpl/files.mjs'
+            );
+            const { default: script } = await importFile(
+                OUT_DIR,
+                'tmpl/script.mjs'
             );
 
             inquirer

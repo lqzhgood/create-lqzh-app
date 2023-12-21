@@ -1,7 +1,10 @@
-const exec = require('child_process').execSync;
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-function npmStart() {}
-
-module.exports = {
-    npmScript,
-};
+export async function importFile(dir, f) {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    const p = 'file://' + join(__dirname, dir, f);
+    const { default: data } = await import(p);
+    return data;
+}

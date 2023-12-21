@@ -50,7 +50,7 @@ module.exports = {
                 jsxSingleQuote: true,
                 useTabs: false,
                 tabWidth: 4,
-                printWidth: 120,
+                printWidth: 480,
             },
         ],
     },
