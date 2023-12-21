@@ -1,1 +1,1 @@
-module.exports = ['npm install && npm run dev', 'tsc --init'];
+module.exports = ['npm install', 'tsc --init', ' npm run dev'];
