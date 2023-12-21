@@ -4,7 +4,7 @@
  * @Description:
  * @Author: lqzh
  * @Date: 2022-04-09 00:03:46
- * @LastEditTime: 2023-12-21 23:42:08
+ * @LastEditTime: 2023-12-21 23:47:57
  */
 
 import inquirer from 'inquirer';
@@ -19,8 +19,6 @@ import chalk from 'chalk';
 import { execSync as exec } from 'child_process';
 
 import templates from './template.js';
-
-console.log('', process.env.NODE_ENV);
 
 let OUT_DIR = './';
 
