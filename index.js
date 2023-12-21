@@ -4,7 +4,7 @@
  * @Description:
  * @Author: lqzh
  * @Date: 2022-04-09 00:03:46
- * @LastEditTime: 2023-12-22 00:06:26
+ * @LastEditTime: 2023-12-22 00:42:08
  */
 
 import inquirer from 'inquirer';
@@ -23,7 +23,7 @@ import templates from './template.js';
 let OUT_DIR = './';
 
 if (process.env.NODE_ENV === 'development') {
-    OUT_DIR = './test';
+    OUT_DIR = './test/';
     fs.mkdirpSync(OUT_DIR);
 }
 
@@ -61,16 +61,19 @@ program
 
             if (!fs.existsSync('./tmpl')) return;
 
-            const prompt = await import(path.resolve('./tmpl/prompt.js'));
-            console.log('prompt', prompt);
-            const files = await import(path.resolve('./tmpl/files.js'));
-            const script = await import(path.resolve('./tmpl/script.js'));
+            const { default: prompt } = await import(
+                OUT_DIR + 'tmpl/prompt.mjs'
+            );
+            const { default: files } = await import(OUT_DIR + 'tmpl/files.mjs');
+            const { default: script } = await import(
+                OUT_DIR + 'tmpl/script.mjs'
+            );
 
             inquirer
                 .prompt(prompt)
                 .then(answers => {
                     for (let i = 0; i < files.length; i++) {
-                        const f = files[i];
+                        const f = path.join(OUT_DIR, files[i]);
                         const content = fs.readFileSync(f, 'utf8');
                         const result = handlebars.compile(content)({
                             ...answers,
