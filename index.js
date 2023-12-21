@@ -4,21 +4,30 @@
  * @Description:
  * @Author: lqzh
  * @Date: 2022-04-09 00:03:46
- * @LastEditTime: 2023-12-21 23:23:50
+ * @LastEditTime: 2023-12-21 23:42:08
  */
 
-const fs = require('fs-extra');
-const path = require('path');
-const { program } = require('commander');
-const download = require('download-git-repo');
-const handlebars = require('handlebars');
-const inquirer = require('inquirer');
-const ora = require('ora');
-const logSymbols = require('log-symbols');
-const chalk = require('chalk');
-const exec = require('child_process').execSync;
+import inquirer from 'inquirer';
+import fs from 'fs-extra';
+import path from 'node:path';
+import { program } from 'commander';
+import download from 'download-git-repo';
+import handlebars from 'handlebars';
+import ora from 'ora';
+import logSymbols from 'log-symbols';
+import chalk from 'chalk';
+import { execSync as exec } from 'child_process';
 
-const templates = require('./template.js');
+import templates from './template.js';
+
+console.log('', process.env.NODE_ENV);
+
+let OUT_DIR = './';
+
+if (process.env.NODE_ENV === 'development') {
+    OUT_DIR = './test';
+    fs.mkdirpSync(OUT_DIR);
+}
 
 program.version('1.0.0'); // -v 或者 --versions输出版本号
 
@@ -40,7 +49,7 @@ program
         //download
         // 第一个参数： 仓库地址
         // 第二个参数： 下载路径
-        download(downloadUrl, './', { clone: false }, err => {
+        download(downloadUrl, OUT_DIR, { clone: false }, err => {
             if (err) {
                 spinner.fail();
                 console.log(logSymbols.error, chalk.red(err));

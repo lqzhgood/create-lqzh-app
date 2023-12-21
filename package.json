@@ -3,11 +3,13 @@
     "version": "1.0.13",
     "description": "my create app cli",
     "main": "./index.js",
+    "type": "module",
     "bin": {
         "create-lqzh-app": "./index.js"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "cross-env NODE_ENV=development node index.js",
         "npmPush": "npm publish",
         "npmVersion": "npm version patch"
     },
@@ -25,6 +27,7 @@
     "dependencies": {
         "chalk": "^5.3.0",
         "commander": "^11.1.0",
+        "cross-env": "^7.0.3",
         "download-git-repo": "^3.0.2",
         "fs-extra": "^11.2.0",
         "handlebars": "^4.7.8",

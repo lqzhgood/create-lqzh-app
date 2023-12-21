@@ -9,6 +9,10 @@ my create app cli
 
 `create-lqzh-app -h` 获取帮助
 
+## 开发
+
+`npm run dev init nodejs`
+
 #### npm
 
 `npm version patch`
