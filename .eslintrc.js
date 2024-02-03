@@ -54,7 +54,7 @@ module.exports = {
             },
         ],
         // https://stackoverflow.com/questions/44407742/make-unreachable-code-detected-compilation-warning-instead-of-error-in-typescr
-        // ts 的 allowUnreachableCode 配置会删掉 return 之后的东西, 但是又不能设置 wran. 所以这里让 eslint 去提示
+        // ts 的 allowUnreachableCode 配置会删掉 return 之后的东西, 但是又不能设置 warn. 所以这里让 eslint 去提示
         'no-unreachable': 'warn',
     },
 };
