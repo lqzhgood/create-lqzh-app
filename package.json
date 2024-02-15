@@ -4,13 +4,14 @@
     "description": "{{description}}",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "prettier": "prettier . --write",
         "eslint": "eslint . --ext .js,.ts --fix",
         "dev": "cross-env NODE_ENV=development nodemon --inspect index.js",
         "dev-ts": "cross-env NODE_ENV=development nodemon -e 'ts' --exec 'node --inspect -r ts-node/register ./index.ts'",
         "dev-ts-esm": "cross-env NODE_ENV=development nodemon -e 'ts' --exec 'node --inspect --loader ts-node/esm  ./index.ts'",
-        "prod": "cross-env NODE_ENV=production node index.js"
+        "prod": "cross-env NODE_ENV=production node index.js",
+        "build": "tsc"
     },
     "keywords": [],
     "author": "lqzh",
@@ -33,12 +34,16 @@
     "devDependencies": {
         "@babel/core": "^7.23.6",
         "@babel/eslint-parser": "^7.23.3",
+        "@types/jest": "^29.5.12",
         "@typescript-eslint/eslint-plugin": "^6.15.0",
         "@typescript-eslint/parser": "^6.15.0",
         "eslint": "^8.56.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-prettier": "^5.1.0",
+        "jest": "^29.7.0",
+        "jest-serial-runner": "^1.2.1",
         "prettier": "^3.1.1",
+        "ts-jest": "^29.1.2",
         "typescript": "^5.3.3"
     }
 }
