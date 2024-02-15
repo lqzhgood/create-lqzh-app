@@ -22,6 +22,11 @@ module.exports = {
                 'plugin:@typescript-eslint/recommended-type-checked',
                 'plugin:prettier/recommended',
             ],
+            rules: {
+                '@typescript-eslint/no-var-requires': 0,
+                '@typescript-eslint/no-explicit-any': 0,
+                '@typescript-eslint/no-unsafe-member-access': 'warn',
+            },
         },
     ],
     extends: ['eslint:recommended', 'plugin:prettier/recommended'],

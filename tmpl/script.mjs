@@ -1,1 +1,1 @@
-export default ['npm install', 'tsc --init', ' npm run dev'];
+export default ['npm install', ' npm run dev'];
